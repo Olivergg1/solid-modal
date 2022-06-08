@@ -9,11 +9,14 @@ const [modal, setModal] = createSignal(null)
  * @returns {JSX.Element} A jsx-element which holds a modal
  */
 
-export const ModalContainer = () => {
+export const ModalContainer = ({ children }) => {
   return (
-    <Show when={modal() !== null}>
-      <div id={styles.modalContainer}>{modal() !== null && modal}</div>
-    </Show>
+    <>
+      <Show when={modal() !== null}>
+        <div id={styles.modalContainer}>{modal() !== null && modal}</div>
+      </Show>
+      {children}
+    </>
   )
 }
 
@@ -23,7 +26,6 @@ export const ModalContainer = () => {
  */
 
 export const createModal = ({ title, elements, element }) => {
-  
   // Close this modal
   const close = () => {
     setModal(null)

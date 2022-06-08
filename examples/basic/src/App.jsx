@@ -1,5 +1,5 @@
 import styles from './App.module.css'
-import { ModalContainer, createModal } from '../../../lib/modal'
+import { createModal } from '../../../lib/modal'
 
 function App() {
   const [show, close] = createModal({
@@ -13,7 +13,6 @@ function App() {
 
   return (
     <div class={styles.App}>
-      <ModalContainer />
       <h1>An example-modal using solid-modal</h1>
       <button className='button' onClick={show}>
         click me
