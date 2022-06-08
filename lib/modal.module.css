@@ -1,5 +1,49 @@
+#modalContainer {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0000005e;
+}
+
+#modalContainer.hidden {
+  display: none;
+}
+
+#modalHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+#closeModal {
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
 .modal {
   background-color: #202020;
-  height: 20rem;
+  height: max-content;
   width: 20rem;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+  position: relative;
 }

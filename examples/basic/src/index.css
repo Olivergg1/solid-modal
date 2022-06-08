@@ -5,9 +5,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #161616;
+}
+
+#root,
+body,
+html {
+  height: 100%;
+  width: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.button {
+  padding: 0.8rem 1.5rem;
+  background-color: rgb(20, 112, 173);
+  border: none;
+  border-radius: 0.2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.button.stretch {
+  width: 100%;
 }
