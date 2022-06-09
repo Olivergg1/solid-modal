@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   background-color: #0000005e;
+  z-index: 1000;
 }
 
 #modalContainer.hidden {
@@ -15,7 +16,12 @@
 #modalHeader {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+#modalHeader.centerTitle > h2 {
+  text-align: center;
+  width: 100%;
 }
 
 #closeModal {
@@ -46,4 +52,40 @@
   padding: 1rem;
 
   position: relative;
+}
+
+.modalButton {
+  width: 100%;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  background-color: rgb(22, 97, 167);
+  border-radius: 0.2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.modalButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* types */
+
+/** Confirm and Cancel **/
+#modalButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+#modalButtons > button {
+  width: 100%;
+  border: none;
+}
+
+#confirm {
+  background-color: rgb(30, 134, 30);
+}
+
+#cancel {
+  background-color: #f00;
 }
