@@ -15,8 +15,8 @@
 
 #modalHeader {
   display: flex;
-  justify-content: space-between;
   margin-bottom: 1rem;
+  height: max-content;
 }
 
 #modalHeader.centerTitle > h2 {
@@ -43,6 +43,14 @@
   right: 0.5rem;
 }
 
+#modalElements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+}
+
 .modal {
   background-color: #202020;
   height: max-content;
@@ -62,6 +70,11 @@
   border-radius: 0.2rem;
   color: white;
   cursor: pointer;
+  transition: opacity 300ms;
+}
+
+.modalButton:hover {
+  opacity: 0.7;
 }
 
 .modalButton:disabled {
@@ -83,9 +96,16 @@
 }
 
 #confirm {
-  background-color: rgb(30, 134, 30);
+  /* background-color: rgb(10, 109, 79); */
 }
 
 #cancel {
   background-color: #f00;
+}
+
+/** Informational **/
+
+#infoText {
+  margin-bottom: 1rem;
+  color: lightgray;
 }

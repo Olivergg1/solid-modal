@@ -29,11 +29,9 @@ export const createModal = ({
   title,
   elements,
   element,
-  type,
-  onConfirm,
-  onCancel,
   hideCloseButton,
   centerTitle,
+  className,
 }) => {
   // Close this modal
   const close = () => {
@@ -58,38 +56,78 @@ export const createModal = ({
           </button>
         </Show>
       </div>
-      <Show when={element}>{element}</Show>
-      <Show
-        when={elements !== [] || elements !== null || elements !== undefined}>
-        <For each={elements}>{(elem) => elem}</For>
-      </Show>
-      <Switch>
-        <Match when={type === 'yesno'}>
-          <div id={styles.modalButtons}>
-            <button
-              className={styles.modalButton}
-              id={styles.confirm}
-              onClick={() => {
-                console.log(typeof onConfirm)
-                if (typeof onConfirm === 'function') onConfirm()
-                close()
-              }}>
-              Confirm
-            </button>
-            <button
-              className={styles.modalButton}
-              id={styles.cancel}
-              onClick={() => {
-                if (typeof onCancel === 'function') onCancel()
-                close()
-              }}>
-              Cancel
-            </button>
-          </div>
-        </Match>
-      </Switch>
+      <div
+        id={styles.modalElements}
+        classList={{ [className]: typeof className === 'string' }}>
+        <Show when={element}>{element}</Show>
+        <Show
+          when={elements !== [] || elements !== null || elements !== undefined}>
+          <For each={elements}>{(elem) => elem}</For>
+        </Show>
+      </div>
     </div>
   )
+
+  return [show, close]
+}
+
+export const createConfirmModal = ({
+  title,
+  elements,
+  element,
+  onConfirm,
+  onCancel,
+}) => {
+  const [show, close] = createModal({
+    title: title,
+    elements: [
+      ...(Array.isArray(elements) ? elements : []),
+      <div id={styles.modalButtons}>
+        <button
+          className={styles.modalButton}
+          id={styles.confirm}
+          onClick={() => {
+            console.log(typeof onConfirm)
+            if (typeof onConfirm === 'function') onConfirm()
+            close()
+          }}>
+          Confirm
+        </button>
+        <button
+          className={styles.modalButton}
+          id={styles.cancel}
+          onClick={() => {
+            if (typeof onCancel === 'function') onCancel()
+            close()
+          }}>
+          Cancel
+        </button>
+      </div>,
+    ],
+    element,
+    hideCloseButton: true,
+    centerTitle: true,
+  })
+
+  return [show, close]
+}
+
+export const createInformationModal = ({
+  title,
+  text,
+  elements,
+  closeButtonText,
+}) => {
+  const [show, close] = createModal({
+    title: title,
+    elements: [
+      ...(Array.isArray(elements) ? elements : []),
+      <p id={styles.infoText}>{text || ''}</p>,
+      <button className={styles.modalButton} onClick={() => close()}>
+        {closeButtonText || 'I understand'}
+      </button>,
+    ],
+  })
 
   return [show, close]
 }
