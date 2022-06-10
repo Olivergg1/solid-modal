@@ -117,13 +117,19 @@ export const createInformationModal = ({
   text,
   elements,
   closeButtonText,
+  onClose,
 }) => {
   const [show, close] = createModal({
     title: title,
     elements: [
       ...(Array.isArray(elements) ? elements : []),
       <p id={styles.infoText}>{text || ''}</p>,
-      <button className={styles.modalButton} onClick={() => close()}>
+      <button
+        className={styles.modalButton}
+        onClick={() => {
+          if (typeof onClose === 'function') onClose()
+          close()
+        }}>
         {closeButtonText || 'I understand'}
       </button>,
     ],
