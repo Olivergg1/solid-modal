@@ -1,6 +1,6 @@
 {
   "name": "solid-modal",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Simple modals in Solid.js",
   "main": "./lib/modal.jsx",
   "directories": {
