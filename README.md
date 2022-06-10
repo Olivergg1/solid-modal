@@ -39,7 +39,7 @@ To show a modal, use the show function. This will add the modal to the previousl
 ```javascript
 createModal()
 
-// Modal types
+// Modal types (^0.1.3)
 
 createInformationalModal() // Modal with an informational message
 createConfirmModal() // Modal with confirm and cancel buttons
