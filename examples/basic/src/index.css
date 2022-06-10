@@ -8,6 +8,11 @@ body {
   background-color: #161616;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 #root,
 body,
 html {

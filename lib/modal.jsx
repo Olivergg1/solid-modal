@@ -1,5 +1,5 @@
 'use strict'
-import { createSignal, For, Show } from 'solid-js'
+import { createSignal, For, Show, Switch, Match } from 'solid-js'
 import styles from './modal.module.css'
 
 const [modal, setModal] = createSignal(null)
@@ -25,7 +25,14 @@ export const ModalContainer = ({ children }) => {
  * @returns {Array} Array consisting of the functions show and close
  */
 
-export const createModal = ({ title, elements, element }) => {
+export const createModal = ({
+  title,
+  elements,
+  element,
+  hideCloseButton,
+  centerTitle,
+  className,
+}) => {
   // Close this modal
   const close = () => {
     setModal(null)
@@ -37,18 +44,96 @@ export const createModal = ({ title, elements, element }) => {
   }
 
   // Modal component
-  const Modal = () => (
+  const Modal = (
     <div className={styles.modal}>
-      <div id={styles.modalHeader}>
-        <h2>{title || 'some title'}</h2>
-        <button id={styles.closeModal} onClick={close}>
-          &#10006;
-        </button>
+      <div
+        classList={{ [styles.centerTitle]: centerTitle === true }}
+        id={styles.modalHeader}>
+        <h2>{title || 'Title'}</h2>
+        <Show when={hideCloseButton !== true}>
+          <button id={styles.closeModal} onClick={close}>
+            &#10006;
+          </button>
+        </Show>
       </div>
-      <Show when={element}>{element}</Show>
-      <For each={elements !== [] || elements !== null}>{(elem) => elem}</For>
+      <div
+        id={styles.modalElements}
+        classList={{ [className]: typeof className === 'string' }}>
+        <Show when={element}>{element}</Show>
+        <Show
+          when={elements !== [] || elements !== null || elements !== undefined}>
+          <For each={elements}>{(elem) => elem}</For>
+        </Show>
+      </div>
     </div>
   )
+
+  return [show, close]
+}
+
+export const createConfirmModal = ({
+  title,
+  elements,
+  element,
+  onConfirm,
+  onCancel,
+}) => {
+  const [show, close] = createModal({
+    title: title,
+    elements: [
+      ...(Array.isArray(elements) ? elements : []),
+      <div id={styles.modalButtons}>
+        <button
+          className={styles.modalButton}
+          id={styles.confirm}
+          onClick={() => {
+            console.log(typeof onConfirm)
+            if (typeof onConfirm === 'function') onConfirm()
+            close()
+          }}>
+          Confirm
+        </button>
+        <button
+          className={styles.modalButton}
+          id={styles.cancel}
+          onClick={() => {
+            if (typeof onCancel === 'function') onCancel()
+            close()
+          }}>
+          Cancel
+        </button>
+      </div>,
+    ],
+    element,
+    hideCloseButton: true,
+    centerTitle: true,
+  })
+
+  return [show, close]
+}
+
+export const createInformationModal = ({
+  title,
+  text,
+  elements,
+  closeButtonText,
+  onClose,
+}) => {
+  const [show, close] = createModal({
+    title: title,
+    elements: [
+      ...(Array.isArray(elements) ? elements : []),
+      <p id={styles.infoText}>{text || ''}</p>,
+      <button
+        className={styles.modalButton}
+        onClick={() => {
+          if (typeof onClose === 'function') onClose()
+          close()
+        }}>
+        {closeButtonText || 'I understand'}
+      </button>,
+    ],
+  })
 
   return [show, close]
 }

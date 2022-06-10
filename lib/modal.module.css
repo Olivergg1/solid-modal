@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   background-color: #0000005e;
+  z-index: 1000;
 }
 
 #modalContainer.hidden {
@@ -14,8 +15,13 @@
 
 #modalHeader {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
+  height: max-content;
+}
+
+#modalHeader.centerTitle > h2 {
+  text-align: center;
+  width: 100%;
 }
 
 #closeModal {
@@ -37,6 +43,14 @@
   right: 0.5rem;
 }
 
+#modalElements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+}
+
 .modal {
   background-color: #202020;
   height: max-content;
@@ -46,4 +60,48 @@
   padding: 1rem;
 
   position: relative;
+}
+
+.modalButton {
+  width: 100%;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  background-color: rgb(22, 97, 167);
+  border-radius: 0.2rem;
+  color: white;
+  cursor: pointer;
+  transition: opacity 300ms;
+}
+
+.modalButton:hover {
+  opacity: 0.7;
+}
+
+.modalButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* types */
+
+/** Confirm and Cancel **/
+#modalButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+#modalButtons > button {
+  width: 100%;
+  border: none;
+}
+
+#cancel {
+  background-color: #f00;
+}
+
+/** Informational **/
+
+#infoText {
+  margin-bottom: 1rem;
+  color: lightgray;
 }

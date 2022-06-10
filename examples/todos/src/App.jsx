@@ -1,9 +1,16 @@
 import { useTodo } from './contexts/TodoProvider'
-import { createEffect, createSignal, For } from 'solid-js'
-import { createModal } from '../../../lib/modal'
+import { createEffect, createSignal, For, Show } from 'solid-js'
+import { createConfirmModal, createModal } from '../../../lib/modal'
 
 const Todo = ({ title, id, editing, deleteTodo }) => {
   const [completed, setCompleted] = createSignal(false)
+
+  const [show, close] = createConfirmModal({
+    title: 'Delete task?',
+    onConfirm: () => deleteTodo(id),
+    hideCloseButton: true,
+    centerTitle: true,
+  })
 
   return (
     <div
@@ -22,12 +29,14 @@ const Todo = ({ title, id, editing, deleteTodo }) => {
             checked: completed() === true,
           }}
           onClick={() => setCompleted((c) => !c)}>
-          <Show when={completed() === true}>&#128504;</Show>
+          <Show when={completed() === true}>
+            <p>&#128504;</p>
+          </Show>
         </button>
         <button
           className='small-button delete'
           classList={{ hide: editing() !== true }}
-          onClick={() => deleteTodo(id)}>
+          onClick={() => show()}>
           &times;
         </button>
       </div>
@@ -38,6 +47,7 @@ const Todo = ({ title, id, editing, deleteTodo }) => {
 function App() {
   const [todos, { addTodo, deleteTodo }] = useTodo()
   const [edit, setEdit] = createSignal(false)
+
   const CreateTodoForm = () => {
     const [title, setTitle] = createSignal('')
     return (
@@ -58,6 +68,7 @@ function App() {
       </form>
     )
   }
+
   const [show, close] = createModal({
     title: 'Add todo',
     element: <CreateTodoForm />,
@@ -73,11 +84,6 @@ function App() {
       deleteTodo,
     })
     close()
-  }
-
-  const showAlert = (edit) => {
-    let title = prompt('Todo title:', 'default')
-    if (typeof title !== 'string' || title === '') return
   }
 
   createEffect(() => {
