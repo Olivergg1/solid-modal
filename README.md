@@ -40,8 +40,7 @@ To show a modal, use the show function. This will add the modal to the previousl
 createModal()
 
 // Modal types (^0.1.3)
-
-createInformationalModal() // Modal with an informational message
+createInformationModal() // Modal with an informational message
 createConfirmModal() // Modal with confirm and cancel buttons
 ```
 
