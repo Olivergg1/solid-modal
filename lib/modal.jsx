@@ -9,11 +9,11 @@ const [modal, setModal] = createSignal(null)
  * @returns {JSX.Element} A jsx-element which holds a modal
  */
 
-export const ModalContainer = ({ children }) => {
+export const ModalContainer = ({ children, withOpacity }) => {
   return (
     <>
       <Show when={modal() !== null}>
-        <div id={styles.modalContainer}>{modal() !== null && modal}</div>
+        <div id={styles.modalContainer} classList={{ [styles.withOpacity]: withOpacity !== false }}>{modal() !== null && modal}</div>
       </Show>
       {children}
     </>
@@ -32,6 +32,7 @@ export const createModal = ({
   hideCloseButton,
   centerTitle,
   className,
+  large
 }) => {
   // Close this modal
   const close = () => {
@@ -45,11 +46,11 @@ export const createModal = ({
 
   // Modal component
   const Modal = (
-    <div className={styles.modal}>
+    <div id={styles.modal} classList={{ [styles.large]: large === true }}>
       <div
         classList={{ [styles.centerTitle]: centerTitle === true }}
         id={styles.modalHeader}>
-        <h2>{title || 'Title'}</h2>
+        {(typeof title === "string" && title !== "") ? <h2>{title}</h2> : null}
         <Show when={hideCloseButton !== true}>
           <button id={styles.closeModal} onClick={close}>
             &#10006;

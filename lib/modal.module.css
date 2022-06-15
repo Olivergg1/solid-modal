@@ -1,3 +1,20 @@
+:root {
+  --primary: #202020;
+  --button-color: #1661a7;
+  --heading: #fff;
+  --text: #cbcbcb;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary: #F0F0F0;
+    --button-color: #1661a7;
+    --heading: #000;
+    --text: : #000;
+  }
+}
+
+/* ModalContainer */
 #modalContainer {
   position: fixed;
   height: 100vh;
@@ -7,16 +24,50 @@
   justify-content: center;
   background-color: #0000005e;
   z-index: 1000;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 #modalContainer.hidden {
   display: none;
 }
 
+#modalContainer:not(.withOpacity) {
+  background-color: transparent;
+}
+
+/* Modal */
+#modal {
+  background-color: var(--primary);
+  height: max-content;
+  width: 20rem;
+  color: var(--heading);
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+  position: relative;
+
+  min-width: 20rem;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 2rem);
+}
+
+#modal.large {
+  width: 100%;
+  height: 100%;
+}
+
 #modalHeader {
   display: flex;
   margin-bottom: 1rem;
   height: max-content;
+  padding: 0;
+  margin: 0;
+}
+
+#modalHeader h2 {
+  padding: 0;
+  margin: 0;
 }
 
 #modalHeader.centerTitle > h2 {
@@ -34,6 +85,8 @@
   justify-content: center;
   background-color: red;
   color: white;
+  fill: white;
+  text-shadow: white;
   font-size: 12px;
 
   cursor: pointer;
@@ -51,22 +104,11 @@
   width: 100%;
 }
 
-.modal {
-  background-color: #202020;
-  height: max-content;
-  width: 20rem;
-  color: white;
-  border-radius: 0.5rem;
-  padding: 1rem;
-
-  position: relative;
-}
-
 .modalButton {
   width: 100%;
   border: none;
   padding: 0.8rem 1.5rem;
-  background-color: rgb(22, 97, 167);
+  background-color: var(--button-color);
   border-radius: 0.2rem;
   color: white;
   cursor: pointer;
@@ -103,5 +145,5 @@
 
 #infoText {
   margin-bottom: 1rem;
-  color: lightgray;
+  color: var(--text);
 }
